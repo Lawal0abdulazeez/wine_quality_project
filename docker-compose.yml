@@ -1,0 +1,11 @@
+# docker-compose.yml
+version: '3'
+services:
+  wine-quality-api:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/app/models
+    environment:
+      - FLASK_ENV=production

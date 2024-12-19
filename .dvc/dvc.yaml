@@ -1,0 +1,18 @@
+# dvc.yaml
+stages:
+  prepare:
+    cmd: python src/data_processing/prepare.py
+    deps:
+      - data/raw/winequality-red.csv
+      - data/raw/winequality-white.csv
+    outs:
+      - data/processed/prepared_data.csv
+      
+  train:
+    cmd: python src/modeling/train.py
+    deps:
+      - data/processed/prepared_data.csv
+    outs:
+      - models/saved_models/model.pkl
+    metrics:
+      - metrics/training_metrics.json

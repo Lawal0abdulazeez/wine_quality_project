@@ -1,0 +1,22 @@
+
+# kubernetes/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wine-quality-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wine-quality-api
+  template:
+    metadata:
+      labels:
+        app: wine-quality-api
+    spec:
+      containers:
+      - name: wine-quality-api
+        image: wine-quality-api:latest
+        ports:
+        - containerPort: 5000
+        

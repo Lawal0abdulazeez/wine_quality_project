@@ -1,0 +1,12 @@
+
+scikit-learn
+pandas
+numpy
+flask
+mlflow
+docker
+kubernetes
+great-expectations==0.15.0
+evidently==0.2.1
+dvc==2.10.0
+dvc[s3]  # for S3 storage support
