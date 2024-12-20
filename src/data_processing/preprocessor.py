@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+import joblib
+import os
+import copy
 
 class DataPreprocessor:
     def __init__(self, config):
@@ -41,7 +44,7 @@ class DataPreprocessor:
     def balance_dataset(self, X, y):
         """Balance the dataset using SMOTE"""
         from imblearn.over_sampling import SMOTE
-        smote = SMOTE(random_state=self.config['random_state'])
+        smote = SMOTE(random_state=self.config['random_state'], k_neighbors=min(5, len(X)-1))
         X_balanced, y_balanced = smote.fit_resample(X, y)
         return X_balanced, y_balanced
     
@@ -73,5 +76,16 @@ class DataPreprocessor:
         # Scale features
         X_train_scaled = self.scaler.fit_transform(X_train)
         X_test_scaled = self.scaler.transform(X_test)
+        
+        # Save the scaler object separately
+        scaler_path = os.path.join(self.config['model_save_path'], 'scaler.pkl')
+        joblib.dump(self.scaler, scaler_path)
+        
+        # Save preprocessor configuration
+        preprocessor_path = os.path.join(self.config['model_save_path'], 'preprocessor.pkl')
+        # Create a copy without the fitted scaler
+        preprocessor_config = copy.deepcopy(self)
+        preprocessor_config.scaler = None
+        joblib.dump(preprocessor_config, preprocessor_path)
         
         return X_train_scaled, X_test_scaled, y_train, y_test
