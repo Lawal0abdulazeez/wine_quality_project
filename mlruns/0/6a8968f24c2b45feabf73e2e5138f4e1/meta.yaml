@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/6a8968f24c2b45feabf73e2e5138f4e1/artifacts
+deleted_time: 1734702653805
+end_time: 1734702083984
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 6a8968f24c2b45feabf73e2e5138f4e1
+run_name: random_forest
+run_uuid: 6a8968f24c2b45feabf73e2e5138f4e1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734702083736
+status: 3
+tags: []
+user_id: DELL

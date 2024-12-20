@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/data_processing/prepare.py
+    deps:
+    - path: data/raw/winequality-red.csv
+      hash: md5
+      md5: a3d7176f82fcf0c4be302c0b80f06058
+      size: 1612
+    - path: data/raw/winequality-white.csv
+      hash: md5
+      md5: 5837106f71a10ef1ad84fd40e72d3da6
+      size: 1590
+    outs:
+    - path: data/processed/prepared_data.csv
+      hash: md5
+      md5: 4daf32cf82dcfdba3ff2ad94fe6bc689
+      size: 3110
+  train:
+    cmd: python src/modeling/model_trainer.py
+    deps:
+    - path: data/processed/prepared_data.csv
+      hash: md5
+      md5: 4daf32cf82dcfdba3ff2ad94fe6bc689
+      size: 3110
+    outs:
+    - path: metrics/training_metrics.json
+      hash: md5
+      md5: 85260368540710d2446c7a18464d284d
+      size: 402
+    - path: models/saved_models/random_forest_model.pkl
+      hash: md5
+      md5: 6b6f4f8200d8de1533c3c4fde52851e8
+      size: 208369

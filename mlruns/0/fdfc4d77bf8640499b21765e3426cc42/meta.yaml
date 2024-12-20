@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/fdfc4d77bf8640499b21765e3426cc42/artifacts
+deleted_time: 1734702653742
+end_time: 1734702606576
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: fdfc4d77bf8640499b21765e3426cc42
+run_name: gradient_boosting
+run_uuid: fdfc4d77bf8640499b21765e3426cc42
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734702606069
+status: 3
+tags: []
+user_id: DELL
