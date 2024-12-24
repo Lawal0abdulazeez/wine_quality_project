@@ -3,9 +3,8 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-import joblib
 import os
-import copy
+import joblib
 
 class DataPreprocessor:
     def __init__(self, config):
@@ -44,7 +43,7 @@ class DataPreprocessor:
     def balance_dataset(self, X, y):
         """Balance the dataset using SMOTE"""
         from imblearn.over_sampling import SMOTE
-        smote = SMOTE(random_state=self.config['random_state'], k_neighbors=min(5, len(X)-1))
+        smote = SMOTE(random_state=self.config['random_state'])
         X_balanced, y_balanced = smote.fit_resample(X, y)
         return X_balanced, y_balanced
     
@@ -73,19 +72,23 @@ class DataPreprocessor:
             random_state=self.config['random_state']
         )
         
-        # Scale features
+        # Fit the scaler and transform the training data
         X_train_scaled = self.scaler.fit_transform(X_train)
+        
+        # Transform the test data (scaler is already fitted on X_train)
         X_test_scaled = self.scaler.transform(X_test)
         
-        # Save the scaler object separately
-        scaler_path = os.path.join(self.config['model_save_path'], 'scaler.pkl')
-        joblib.dump(self.scaler, scaler_path)
-        
-        # Save preprocessor configuration
-        preprocessor_path = os.path.join(self.config['model_save_path'], 'preprocessor.pkl')
-        # Create a copy without the fitted scaler
-        preprocessor_config = copy.deepcopy(self)
-        preprocessor_config.scaler = None
-        joblib.dump(preprocessor_config, preprocessor_path)
-        
+
+        # Define the path to save the preprocessor
+        save_dir = os.path.join('models', 'saved_models')
+        os.makedirs(save_dir, exist_ok=True)  # Create the directory if it doesn't exist
+        preprocessor_path = os.path.join(save_dir, 'preprocessor.pkl')
+
+        # Create a simple preprocessor (example: StandardScaler)
+        preprocessor = self.scaler
+
+        # Save the preprocessor
+        joblib.dump(preprocessor, preprocessor_path)
+        print(f"Preprocessor saved to: {preprocessor_path}")
+
         return X_train_scaled, X_test_scaled, y_train, y_test

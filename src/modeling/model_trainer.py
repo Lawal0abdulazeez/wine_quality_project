@@ -6,6 +6,10 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import RandomizedSearchCV
+from src.data_processing.preprocessor import generate_and_save_preprocessor
+
+# Generate and save the preprocessor before training
+generate_and_save_preprocessor()
 
 class ModelTrainer:
     def __init__(self):
